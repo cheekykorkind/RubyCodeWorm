@@ -5,3 +5,4 @@ docker system prune --volumes
 docker image prune -a  
 docker rmi $(docker images -q) --force  
 docker exec ruby_code_worm ruby ./src/Tasks/script.rb  
+docker exec ruby_code_worm ruby ./src/Tasks/repository_tree_depth.rb  
