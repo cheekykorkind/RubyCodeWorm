@@ -13,3 +13,6 @@ puts res.class.name # => 'HTTPOK'
 # Body
 parsedJson = JSON.parse(res.body)
 puts Base64.decode64(parsedJson["content"])
+
+# https://api.github.com/repos/cheekykorkind/JHCompiler/branches/master
+# https://api.github.com/repos/cheekykorkind/GithubApiTest/branches/master
