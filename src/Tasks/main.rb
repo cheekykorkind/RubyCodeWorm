@@ -6,7 +6,8 @@ require_relative 'tree_worm'
 tree_worm = TreeWorm.new('https://api.github.com/repos/cheekykorkind/GithubApiTest/branches/master')
 # tree_worm.set_root_url requester_worm.get_json 'https://api.github.com/repos/cheekykorkind/GithubApiTest/branches/master'
 
-puts tree_worm.get_root_url
+tree_worm.start
+
 
 # tree1_url = requester_worm.get_json tree_worm.get_root_url
 
