@@ -8,3 +8,4 @@ services:
     tty: true
     volumes:
       - ../:/docker/workspace
+      - /home/vagrant/.ssh:/root/.ssh

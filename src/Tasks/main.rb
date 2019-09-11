@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require_relative 'requester_worm'
 require_relative 'tree_worm'
 require_relative 'absolute_zero_tree_worm'

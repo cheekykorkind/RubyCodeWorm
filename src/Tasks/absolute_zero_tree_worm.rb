@@ -9,7 +9,10 @@ class AbsoluteZeroTreeWorm < RequesterWorm
 
   def start()
     puts @clone_url
-    puts exec('pwd')
+
+    puts system("cd githubRepositories && git clone #{@clone_url}")
+    # puts system("/usr/bin/git status")
+    # puts system("git status")
   end
 
 
