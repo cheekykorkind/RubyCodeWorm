@@ -1,5 +1,7 @@
 require 'json'
 require_relative 'requester_worm'
+require_relative '../Constants/js_navigation_status'
+
 
 class AcidGreenWorm < RequesterWorm
   def initialize(root_url)
@@ -15,16 +17,52 @@ class AcidGreenWorm < RequesterWorm
   end
 
   def find_file_wrap()
-    for line in @tree.lines
-      if line.include? '<tr class="js-navigation-item">'
-        puts line.dump
-      end
-    end
+    status = JsNavigationStatus::BEFORE_ITEM
 
+    for line in @tree.lines
+      if status == JsNavigationStatus::BEFORE_ITEM && line.include?('<tr class="js-navigation-item">')
+        status = JsNavigationStatus::MEET_ITEM
+      end
+
+      if status == JsNavigationStatus::MEET_ITEM && line.include?('<a class="js-navigation-open"')
+        status = JsNavigationStatus::MEET_OPEN
+      end
+
+      if status == JsNavigationStatus::MEET_OPEN
+        puts self.get_html_attribute_value('title', line.dump)
+
+        # puts line.dump
+      end
+
+      if status == JsNavigationStatus::MEET_OPEN && line.include?('</a>')
+        status = JsNavigationStatus::AFTER_OPEN
+      end
+
+    end
   end
 
-  
+  def get_html_attribute_value(attribute_name, string)
+    string.scan( /#{attribute_name}=\\"([^\\"]*)\\"/).last.first
+  end
+
 end
+
+# string1 = '<tr class="js-navigation-item" title="wah">'
+# puts string1.scan( /title="([^"]*)"/).last.first
+
+# if line.include? '<tr class="js-navigation-item">'
+#   status = JsNavigationStatus::MEET_ITEM
+
+#   if line.include? '<a class="js-navigation-open"'
+#     status = JsNavigationStatus::MEET_OPEN
+
+#     if line.include? '</a>'
+#       puts status
+#       status = JsNavigationStatus::AFTER_OPEN
+#     end
+#   end
+# end
+
 
 
 # puts @tree.dump
