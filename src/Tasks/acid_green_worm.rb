@@ -6,7 +6,7 @@ require_relative '../Constants/js_navigation_status'
 class AcidGreenWorm < RequesterWorm
   def initialize(root_url)
     @tree = self.get_json root_url
-    @navigation_items = Array.new 
+    @navigation_items = Array.new
     # @navigation_items.push()
   end
 
@@ -18,24 +18,36 @@ class AcidGreenWorm < RequesterWorm
 
   def find_file_wrap()
     status = JsNavigationStatus::BEFORE_ITEM
+    prev_line = ''
 
     for line in @tree.lines
       if status == JsNavigationStatus::BEFORE_ITEM && line.include?('<tr class="js-navigation-item">')
         status = JsNavigationStatus::MEET_ITEM
+        prev_line = line.dump
+        next
       end
 
       if status == JsNavigationStatus::MEET_ITEM && line.include?('<a class="js-navigation-open"')
         status = JsNavigationStatus::MEET_OPEN
-      end
-
-      if status == JsNavigationStatus::MEET_OPEN
-        puts self.get_html_attribute_value('title', line.dump)
-
-        # puts line.dump
+        prev_line = line.dump
+        next
       end
 
       if status == JsNavigationStatus::MEET_OPEN && line.include?('</a>')
         status = JsNavigationStatus::AFTER_OPEN
+        prev_line = line.dump
+        next
+      end
+
+      # puts line.dump
+      if status == JsNavigationStatus::MEET_OPEN
+        puts self.get_html_attribute_value('title', prev_line)
+
+        prev_line = line.dump
+        break
+
+
+        # puts line.dump
       end
 
     end
