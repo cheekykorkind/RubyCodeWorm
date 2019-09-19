@@ -11,9 +11,10 @@ class AcidGreenWorm < RequesterWorm
   end
 
   def start()
-    puts 'start'
+    # puts 'start'
     self.find_file_wrap()
-    puts 'end'
+    # puts 'end'
+    self.show_navigation_items()
   end
 
   def find_file_wrap()
@@ -23,6 +24,18 @@ class AcidGreenWorm < RequesterWorm
     for line in @tree.lines
       if status == JsNavigationStatus::BEFORE_ITEM && line.include?('<tr class="js-navigation-item">')
         status = JsNavigationStatus::MEET_ITEM
+        prev_line = line.dump
+        next
+      end
+
+      if status == JsNavigationStatus::MEET_ITEM && line.include?('<td class="icon">')
+        status = JsNavigationStatus::MEET_ICON
+        prev_line = line.dump
+        next
+      end
+
+      if status == JsNavigationStatus::MEET_ICON && line.include?('<svg')
+        status = JsNavigationStatus::MEET_SVG
         prev_line = line.dump
         next
       end
@@ -39,15 +52,26 @@ class AcidGreenWorm < RequesterWorm
         next
       end
 
-      # puts line.dump
-      if status == JsNavigationStatus::MEET_OPEN
-        puts self.get_html_attribute_value('title', prev_line)
+      if status == JsNavigationStatus::MEET_SVG
+        # puts prev_line
+        @navigation_items.push({
+          'type' => self.get_html_attribute_value('label', prev_line),
+        })
 
+        status = JsNavigationStatus::MEET_ITEM
         prev_line = line.dump
-        break
+        next
+      end
 
+      if status == JsNavigationStatus::MEET_OPEN
+        @navigation_items.last.merge!({
+          'title' => self.get_html_attribute_value('title', prev_line),
+          'href' => self.get_html_attribute_value('href', prev_line)
+        })
 
-        # puts line.dump
+        status = JsNavigationStatus::BEFORE_ITEM
+        prev_line = line.dump
+        next
       end
 
     end
@@ -55,6 +79,14 @@ class AcidGreenWorm < RequesterWorm
 
   def get_html_attribute_value(attribute_name, string)
     string.scan( /#{attribute_name}=\\"([^\\"]*)\\"/).last.first
+  end
+
+  def show_navigation_items()
+    @navigation_items.each do |item|
+      puts item
+      # puts item['title']
+      # puts item['href']
+    end
   end
 
 end

@@ -2,7 +2,17 @@ module JsNavigationStatus
   BEFORE_ITEM = 1
   MEET_ITEM = 2
   AFTER_ITEM = 3
+
   BEFORE_OPEN = 4
   MEET_OPEN = 5
   AFTER_OPEN = 6
+
+  BEFORE_ICON = 7
+  MEET_ICON = 8
+  AFTER_ICON = 9
+
+
+  BEFORE_SVG = 10
+  MEET_SVG = 11
+  AFTER_SVG = 12
 end
