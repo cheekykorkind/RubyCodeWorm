@@ -1,11 +1,26 @@
+# version: '3'
+# services:
+#   ruby_code_worm:
+#     build:
+#       context: .
+#     container_name: 'ruby_code_worm'
+#     working_dir: '/docker/workspace'
+#     tty: true
+#     volumes:
+#       - ../:/docker/workspace
+
 version: '3'
 services:
   ruby_code_worm:
+    container_name: 'ruby_code_worm'
+    user: $UID:$GID
     build:
       context: .
-    container_name: 'ruby_code_worm'
-    working_dir: '/docker/workspace'
+      args:
+        UID: $UID
+        GID: $GID
+        UNAME: $UNAME
     tty: true
+    working_dir: '/home/$UNAME/workspace'
     volumes:
-      - ../:/docker/workspace
-      - /home/vagrant/.ssh:/root/.ssh
+      - ../:/home/$UNAME/workspace
