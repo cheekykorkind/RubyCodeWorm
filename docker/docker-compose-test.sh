@@ -6,6 +6,4 @@ yes | docker system prune --volumes
 
 docker rmi $(docker images -q) --force
 
-# sudo rm -rf ./workspace/
-
 docker-compose up -d --build
