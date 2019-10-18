@@ -1,0 +1,21 @@
+module JsNavigationStatus
+  LEVEL_START = 1
+  LEVEL_END = 2
+
+  BEFORE_ITEM = 3
+  MEET_ITEM = 4
+  AFTER_ITEM = 5
+
+  BEFORE_OPEN = 6
+  MEET_OPEN = 7
+  AFTER_OPEN = 8
+
+  BEFORE_ICON = 9
+  MEET_ICON = 10
+  AFTER_ICON = 11
+
+
+  BEFORE_SVG = 12
+  MEET_SVG = 13
+  AFTER_SVG = 14
+end
