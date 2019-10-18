@@ -12,7 +12,7 @@ class AcidGreenWorm < RequesterWorm
 
   def start()
     self.find_file_wrap()
-    self.show_navigation_items()
+    # self.show_navigation_items()
   end
 
   def find_file_wrap()

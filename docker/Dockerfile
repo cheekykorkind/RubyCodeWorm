@@ -1,3 +1,4 @@
+# Debian GNU/Linux 10
 FROM ruby:2.6.4-slim
 
 RUN apt update && apt upgrade -y && apt install -y curl gnupg && \
