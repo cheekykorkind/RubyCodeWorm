@@ -2,15 +2,11 @@ require 'json'
 require_relative 'requester_worm'
 require_relative '../Constants/js_navigation_status'
 
-class AcidGreenWorm < RequesterWorm
+class DirectoryWorm < RequesterWorm
   def initialize(root_url)
     @tree = self.get_json(root_url)
     @navigation_items = Array.new
     @status = JsNavigationStatus::LEVEL_START
-  end
-
-  def start()
-    self.find_file_wrap()
   end
 
   def find_file_wrap()
@@ -84,6 +80,7 @@ class AcidGreenWorm < RequesterWorm
   end
 
   def get_navigation_items()
+    self.find_file_wrap()
     @navigation_items
   end
 end

@@ -8,10 +8,6 @@ class FileWorm < RequesterWorm
     @file = []
   end
 
-  def start()
-    self.find_js_file_line()
-  end
-
   def find_js_file_line()
     for line in @raw_file.lines
       if line.include?('class="blob-code blob-code-inner js-file-line"')
@@ -44,6 +40,7 @@ class FileWorm < RequesterWorm
   end
 
   def get_file()
+    self.find_js_file_line()
     @file
   end
 end
