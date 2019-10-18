@@ -9,6 +9,7 @@ services:
         UID: $UID
         GID: $GID
         UNAME: $UNAME
+    stdin_open: true
     tty: true
     working_dir: '/home/$UNAME/workspace'
     volumes:
