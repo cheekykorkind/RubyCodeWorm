@@ -46,17 +46,4 @@ class FileWorm < RequesterWorm
   def get_file()
     @file
   end
-
 end
-
-
-# blob-code blob-code-inner js-file-line
-# pl-s
-# pl-pds
-# pl-s1
-# pl-smi
-# pl-k
-# pl-c1
-# pl-c
-
-# document.search('span').first.inner_html
