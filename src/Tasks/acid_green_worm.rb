@@ -2,7 +2,6 @@ require 'json'
 require_relative 'requester_worm'
 require_relative '../Constants/js_navigation_status'
 
-
 class AcidGreenWorm < RequesterWorm
   def initialize(root_url)
     @tree = self.get_json(root_url)
@@ -12,7 +11,6 @@ class AcidGreenWorm < RequesterWorm
 
   def start()
     self.find_file_wrap()
-    # self.show_navigation_items()
   end
 
   def find_file_wrap()
@@ -81,12 +79,6 @@ class AcidGreenWorm < RequesterWorm
     string.scan( /#{attribute_name}=\\"([^\\"]*)\\"/).last.first
   end
 
-  def show_navigation_items()
-    @navigation_items.each do |item|
-      puts item
-    end
-  end
-
   def get_status()
     @status
   end
@@ -94,5 +86,4 @@ class AcidGreenWorm < RequesterWorm
   def get_navigation_items()
     @navigation_items
   end
-
 end

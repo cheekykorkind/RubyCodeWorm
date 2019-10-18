@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative 'requester_worm'
-require_relative 'tree_worm'
 require_relative 'acid_green_worm.rb'
 require_relative 'traversal_worm'
 
